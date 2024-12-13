@@ -3,10 +3,11 @@ import { packageDir } from './utils';
 import { readPackageJSON } from 'pkg-types';
 import { argv } from 'node:process';
 import { basename, join, resolve } from 'node:path';
-import { execa } from 'execa';
+import { execa, ExecaError } from 'execa';
 import { rimraf } from 'rimraf';
 import { parseArgs } from 'node:util';
 import pc from 'picocolors';
+import { cmp } from 'semver';
 
 const {
   values: { tag, 'skip-build': skipBuild, registry, provenance },
@@ -33,11 +34,13 @@ const {
 const releaseTags = ['alpha', 'beta', 'rc'];
 
 const publish = async (id: string) => {
-  const pkg = await readPackageJSON(id);
-  if (!pkg.version || !pkg.name)
-    return Promise.reject(`Package name or version not found\n`);
+  const pkg = await readPackageJSON(id).catch(() => void 0);
+  if (!pkg) return Promise.reject(`${basename(id)}: package.json not found`);
 
-  console.log(pc.green(`Start publishing package ${pkg.name}@${pkg.version}`));
+  if (!pkg.version || !pkg.name)
+    return Promise.reject(`${basename(id)}: name or version not found`);
+
+  console.log(pc.green(`${pkg.name}@${pkg.version}: start publishing...`));
 
   let releaseTag = tag;
   if (!releaseTag)
@@ -46,6 +49,16 @@ const publish = async (id: string) => {
     );
 
   try {
+    const { stdout: remoteVersion } = await execa('pnpm', [
+      'view',
+      pkg.name,
+      'version'
+    ]);
+    if (cmp(pkg.version, '<=', remoteVersion))
+      return Promise.resolve(
+        `${pkg.name}@${pkg.version}: package version <= remote version, skip publish`
+      );
+
     await execa(
       'pnpm',
       [
@@ -61,11 +74,11 @@ const publish = async (id: string) => {
       }
     );
   } catch (error) {
-    return Promise.reject(error);
+    return Promise.reject(
+      `${pkg.name}@${pkg.version}: ${(error as ExecaError).message}`
+    );
   }
-  console.log(
-    pc.green(`Package ${pkg.name}@${pkg.version} is published successfully`)
-  );
+  console.log(pc.green(`${pkg.name}@${pkg.version}: published successfully`));
 };
 
 const targets =
@@ -88,8 +101,8 @@ if (!skipBuild)
     throw error;
   }
 
-console.log('\n');
-for (const target of targets)
-  await publish(target)
-    .catch(err => console.error(err))
-    .finally(() => rimraf(join(target, 'dist')));
+await Promise.all(
+  targets.map(target =>
+    publish(target).finally(() => rimraf(join(target, 'dist')))
+  )
+);
