@@ -1,6 +1,6 @@
 {
   "name": "@dstl-js/shared",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0-alpha.1",
   "unpkg": "dist/index.js",
   "author": "Lrk",
   "license": "MIT",

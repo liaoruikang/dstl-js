@@ -20,8 +20,11 @@
   "lint-staged": {
     "**/*.ts": [
       "pnpm lint:fix",
-      "pnpm format",
-      "pnpm sync-version"
+      "pnpm format"
+    ],
+    "**/package.json": [
+      "pnpm sync-version",
+      "git add"
     ]
   },
   "devDependencies": {
