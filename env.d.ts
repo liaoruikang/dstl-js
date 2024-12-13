@@ -24,8 +24,4 @@ declare module 'pkg-types' {
   }
 }
 
-declare module 'rollop.config.ts' {
-  type a = number
-}
-
 export {};

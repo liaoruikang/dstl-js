@@ -15,7 +15,7 @@ export default <UserConfig>{
     'type-enum': [
       RuleConfigSeverity.Error,
       'always',
-      ['feat', 'chore', 'release', 'fix', 'test', 'refactor']
+      ['feat', 'chore', 'release', 'fix', 'test', 'refactor', 'build']
     ],
     release: [RuleConfigSeverity.Error, 'always']
   },

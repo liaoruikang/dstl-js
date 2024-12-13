@@ -1,7 +1,7 @@
 {
   "name": "@dstl-js/queue",
   "version": "1.0.0-alpha.0",
-  "main": "src/index.ts",
+  "unpkg": "dist/index.js",
   "files": [
     "dist"
   ],

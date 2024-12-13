@@ -3,13 +3,14 @@ import {
   type Plugin,
   type OutputOptions,
   type RollupOptions,
-  type ExternalOption
+  ExternalOption
 } from 'rollup';
 import typescript from '@rollup/plugin-typescript';
 import dts from 'rollup-plugin-dts';
 import { readPackageJSON } from 'pkg-types';
 import { resolve } from 'node:path';
 import nodeResolve from '@rollup/plugin-node-resolve';
+import terser from '@rollup/plugin-terser';
 
 const TARGET = process.env.TARGET;
 const OUT = process.env.OUT;
@@ -17,9 +18,7 @@ const dev = process.env.DEV === 'true';
 
 const pkg = await readPackageJSON(resolve(TARGET));
 
-if (!pkg.main) throw new Error('main is not defined in package.json');
-
-const input = resolve(TARGET, pkg.main);
+const input = resolve(TARGET, 'src', 'index.ts');
 const outDir = resolve(TARGET, OUT);
 
 const outputs: Record<BuildFormat, OutputOptions> = {
@@ -35,7 +34,7 @@ const outputs: Record<BuildFormat, OutputOptions> = {
     sourcemap: dev
   },
   iife: {
-    file: `${outDir}/index.global.js`,
+    file: `${outDir}/index.js`,
     format: 'iife',
     exports: 'named',
     name: pkg.buildOptions?.name ?? 'Dstl',
@@ -45,7 +44,8 @@ const outputs: Record<BuildFormat, OutputOptions> = {
 
 const createConfig = (
   output: BuildFormat | OutputOptions | BuildFormat[] | OutputOptions[],
-  plugins: Plugin[] = []
+  plugins: Plugin[] = [],
+  callback?: (output: OutputOptions) => OutputOptions
 ): RollupOptions => {
   if (Array.isArray(output))
     output = output.map(o => (typeof o === 'string' ? outputs[o] : o));
@@ -68,6 +68,17 @@ const createConfig = (
       dep => !pkg.buildOptions?.internal?.includes(dep)
     );
 
+  output = output.map(o => {
+    callback && (o = callback(o));
+    return {
+      ...o,
+      banner: `/**
+* ${pkg.name} v${pkg.version}
+* @license MIT
+*/`
+    };
+  });
+
   return {
     input,
     external,
@@ -82,18 +93,28 @@ const createConfig = (
   };
 };
 
-export default defineConfig([
-  createConfig('iife'),
-  createConfig(['cjs', 'esm']),
-  createConfig(
-    {
-      file: `${outDir}/index.d.ts`
-    },
-    [
-      dts({
-        tsconfig: './tsconfig.app.json',
-        respectExternal: true
-      })
-    ]
-  )
-]);
+const options = [createConfig('iife'), createConfig(['cjs', 'esm'])];
+if (!dev)
+  options.push(
+    createConfig(
+      {
+        file: `${outDir}/index.d.ts`
+      },
+      [
+        dts({
+          tsconfig: './tsconfig.app.json',
+          respectExternal: true
+        })
+      ]
+    ),
+    createConfig(['iife'], [terser()], o => ({
+      ...o,
+      file: o.file?.replace('.js', '.min.js')
+    })),
+    createConfig(['cjs', 'esm'], [terser()], o => ({
+      ...o,
+      file: o.file?.replace(/\.(cjs|mjs)$/, '.min.$1')
+    }))
+  );
+
+export default defineConfig(options);
