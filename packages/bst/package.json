@@ -5,6 +5,11 @@
   "files": [
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liaoruikang/dstl-js.git",
+    "directory": "packages/bst"
+  },
   "types": "dist/index.d.ts",
   "exports": {
     ".": {

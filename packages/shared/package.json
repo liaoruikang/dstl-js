@@ -4,6 +4,11 @@
   "unpkg": "dist/index.js",
   "author": "Lrk",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liaoruikang/dstl-js.git",
+    "directory": "packages/shared"
+  },
   "files": [
     "dist"
   ],
