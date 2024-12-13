@@ -1,0 +1,33 @@
+{
+  "name": "@dstl-js/avl",
+  "version": "1.0.0-alpha.0",
+  "main": "src/index.ts",
+  "files": [
+    "dist"
+  ],
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "keywords": [
+    "datastruct",
+    "dstl-js",
+    "tree",
+    "avl"
+  ],
+  "author": "Lrk",
+  "license": "MIT",
+  "dependencies": {
+    "@dstl-js/bst": "workspace:^",
+    "@dstl-js/shared": "workspace:^"
+  }
+}

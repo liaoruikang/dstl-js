@@ -1,0 +1,30 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - v[0-9]+.[0-9]+.[0-9]+*
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    environment: Release
+    permissions:
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: package.json
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'pnpm'
+      - name: Install deps
+        run: pnpm install
+      - name: publish
+        run: pnpm release --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}

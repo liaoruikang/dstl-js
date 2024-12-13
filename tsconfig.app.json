@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "paths": {
+      "@dstl-js/*": ["packages/*/src"]
+    }
+  },
+  "include": ["packages/**/*.ts"]
+}

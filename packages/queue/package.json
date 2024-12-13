@@ -1,0 +1,28 @@
+{
+  "name": "@dstl-js/queue",
+  "version": "1.0.0-alpha.0",
+  "main": "src/index.ts",
+  "files": [
+    "dist"
+  ],
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "keywords": [
+    "datastruct",
+    "dstl-js",
+    "queue"
+  ],
+  "author": "Lrk",
+  "license": "MIT"
+}
