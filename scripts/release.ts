@@ -10,7 +10,7 @@ import pc from 'picocolors';
 import { cmp } from 'semver';
 
 const {
-  values: { tag, 'skip-build': skipBuild, registry, provenance },
+  values: { tag, 'skip-build': skipBuild, registry },
   positionals
 } = parseArgs({
   args: argv.slice(2),
@@ -20,9 +20,6 @@ const {
     },
     registry: {
       type: 'string'
-    },
-    provenance: {
-      type: 'boolean'
     },
     'skip-build': {
       type: 'boolean'
@@ -67,7 +64,7 @@ const publish = async (id: string) => {
         '--access',
         'public',
         ...(registry ? ['--registry', registry] : []),
-        ...(provenance ? ['--provenance'] : [])
+        ...(process.env.CI ? ['--provenance', '--no-git-checks'] : [])
       ],
       {
         cwd: id

@@ -25,6 +25,6 @@ jobs:
       - name: Install deps
         run: pnpm install
       - name: publish
-        run: pnpm release --provenance
+        run: pnpm release
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
