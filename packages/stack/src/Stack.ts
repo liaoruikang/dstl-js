@@ -27,6 +27,7 @@ export class Stack<T> {
 
   push(value: T) {
     this._data.push(value);
+    return this;
   }
 
   pop() {
@@ -35,6 +36,7 @@ export class Stack<T> {
 
   clear() {
     this._data = [];
+    return this;
   }
 
   forEach(callback: (value: T) => void) {

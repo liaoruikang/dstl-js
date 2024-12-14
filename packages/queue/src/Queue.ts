@@ -27,13 +27,14 @@ export class Queue<T> {
     this._data[this._end++] = value;
     this._size++;
     if (
-      this._start / this._end <= Queue._Factor ||
-      this._size <= Queue._MaxChunk
-    )
-      return;
-    this._data = this._data.slice(this._start, this._end);
-    this._start = 0;
-    this._end = this._size;
+      this._start / this._end > Queue._Factor &&
+      this._size > Queue._MaxChunk
+    ) {
+      this._data = this._data.slice(this._start, this._end);
+      this._start = 0;
+      this._end = this._size;
+    }
+    return this;
   }
 
   dequeue() {
@@ -44,6 +45,7 @@ export class Queue<T> {
   clear() {
     this._data = [];
     this._size = this._end = this._start = 0;
+    return this;
   }
 
   peek() {

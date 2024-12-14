@@ -57,6 +57,7 @@ export class LinkList<T> {
       this._tail = this._head = node;
     }
     this._size++;
+    return this;
   }
 
   unshift(value: T) {
@@ -69,6 +70,7 @@ export class LinkList<T> {
       this._head = node;
     }
     this._size++;
+    return this;
   }
 
   shift() {
@@ -120,6 +122,7 @@ export class LinkList<T> {
   clear() {
     this._head = this._tail = null;
     this._size = 0;
+    return this;
   }
 
   forEach(callback: (value: T, index: number) => void) {
