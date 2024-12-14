@@ -25,7 +25,7 @@ yarn add dstl-js
 
 ## All data structures
 
-### [Stack](https://github.com/liaoruikang/dstl-js/tree/main/packages/stack#@dstl-js/stack)
+### [Stack](https://github.com/liaoruikang/dstl-js/tree/main/packages/stack)
 
 First-in-last-out data container
 
@@ -42,7 +42,7 @@ console.log(stack.top); // 4
 for (const v of stack) console.log(v); // 4, 3, 2, 1
 ```
 
-### [Queue](https://github.com/liaoruikang/dstl-js/tree/main/packages/queue#@dstl-js/queue)
+### [Queue](https://github.com/liaoruikang/dstl-js/tree/main/packages/queue)
 
 First-in-first-out data container
 
@@ -59,7 +59,7 @@ console.log(queue.peek); // 2
 for (const v of queue) console.log(v); // 2, 3, 4, 5
 ```
 
-### [LinkList](https://github.com/liaoruikang/dstl-js/tree/main/packages/linklist#@dstl-js/linklist)
+### [LinkList](https://github.com/liaoruikang/dstl-js/tree/main/packages/linklist)
 
 Chain storage structure data container
 
@@ -78,7 +78,7 @@ list.removeAt(3)
 for (const [i,v] of list) console.log(v); // 1, 2, 6, 8, 5, 9
 ```
 
-### [BSTree](https://github.com/liaoruikang/dstl-js/tree/main/packages/bst#@dstl-js/bst)
+### [BSTree](https://github.com/liaoruikang/dstl-js/tree/main/packages/bst)
 
 binary search tree
 
@@ -109,7 +109,7 @@ for (const [k] of bst.preorder()) console.log(k); // 4, 3, 2, 1, 9, 7, 5, 8
 for (const [k] of bst.postorder()) console.log(k); // 1, 2, 3, 5, 8, 7, 9, 4
 ```
 
-### [AVLTree](https://github.com/liaoruikang/dstl-js/tree/main/packages/avl#@dstl-js/avl)
+### [AVLTree](https://github.com/liaoruikang/dstl-js/tree/main/packages/avl)
 
 Self-balancing binary search tree
 
