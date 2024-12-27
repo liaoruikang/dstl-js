@@ -86,7 +86,6 @@ console.log(a, b, c, d, e); // 1, 2, 3, 4, 5
 ### Methods
 
 - **`enqueue(value: T): this`** Add the element to the queue
-
   - **parameters:**
     - **`value： T`** The value to add
       <br/>
@@ -95,7 +94,6 @@ console.log(a, b, c, d, e); // 1, 2, 3, 4, 5
   <br/>
 
 - **`forEach(callback: (value: T) => void): void`** Traverse the queue with callbacks
-
   - **parameters:**
     - **`callback: (value: T) => void`**
       <br/>

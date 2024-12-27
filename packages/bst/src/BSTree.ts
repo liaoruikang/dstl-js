@@ -20,7 +20,7 @@ export enum BSTraverseType {
   PREORDER,
   INORDER,
   POSTORDER,
-  ORDER
+  SEQUENCE
 }
 
 export type BSComparer<Key> = (a: Key, b: Key) => number;
@@ -56,7 +56,7 @@ export class BSTree<T, Key = number> {
 
   get depth() {
     let depth = 0;
-    for (const [, , d] of this.order()) depth = Math.max(depth, d);
+    for (const [, , d] of this.sequence()) depth = Math.max(depth, d);
     return depth;
   }
 
@@ -85,9 +85,13 @@ export class BSTree<T, Key = number> {
   remove(key: Key | Key[]) {
     if (!Array.isArray(key)) key = [key];
 
-    key.forEach(k => this._remove(k));
-
-    return this;
+    return key
+      .map(k => {
+        const node = this._remove(k);
+        if (!node) return;
+        return [node.key, node.value];
+      })
+      .filter(Boolean) as [key: Key, value: T][];
   }
 
   forEach(
@@ -98,7 +102,7 @@ export class BSTree<T, Key = number> {
       [BSTraverseType.PREORDER]: this.preorder.bind(this),
       [BSTraverseType.INORDER]: this.inorder.bind(this),
       [BSTraverseType.POSTORDER]: this.postorder.bind(this),
-      [BSTraverseType.ORDER]: this.order.bind(this)
+      [BSTraverseType.SEQUENCE]: this.sequence.bind(this)
     };
     for (const [v, k] of functions[type]()) callback(v, k);
   }
@@ -167,7 +171,7 @@ export class BSTree<T, Key = number> {
     }
   }
 
-  *order() {
+  *sequence() {
     if (!this._root) return;
     const queue = new Queue<[BSNode<Key, T>, number]>([[this._root, 1]]);
 
@@ -195,21 +199,24 @@ export class BSTree<T, Key = number> {
     return [next.key, next.value];
   }
 
-  min() {
+  min(): [key: Key, value: T] | null {
     let current = this._root;
     while (current?.left) current = current.left;
-    return current;
+    if (!current) return null;
+    return [current.key, current.value];
   }
 
-  max() {
+  max(): [key: Key, value: T] | null {
     let current = this._root;
     while (current?.right) current = current.right;
-    return current;
+    if (!current) return null;
+    return [current.key, current.value];
   }
 
   clear() {
     this._root = null;
     this._size = 0;
+    return this;
   }
 
   has(key: Key) {

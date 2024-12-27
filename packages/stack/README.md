@@ -84,7 +84,6 @@ console.log(a, b, c, d, e); // 5, 4, 3, 2, 1
 ### Methods
 
 - **`push(value: T): this`** Inserts an element to the top of the stack
-
   - **parameters:**
     - **`value： T`** The value to insert
       <br/>
@@ -93,7 +92,6 @@ console.log(a, b, c, d, e); // 5, 4, 3, 2, 1
   <br/>
 
 - **`forEach(callback: (value: T) => void): void`** Traverse the stack with callbacks
-
   - **parameters:**
     - **`callback: (value: T) => void`**
       <br/>

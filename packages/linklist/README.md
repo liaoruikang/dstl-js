@@ -90,7 +90,6 @@ console.log(a, b, c, d, e); // 1, 2, 3, 4, 5
 ### Methods
 
 - **`push(value: T): this`** Add an element to the tail of the linklist
-
   - **parameters:** - **`value: T`** The value to add
     <br/>
 
@@ -98,7 +97,6 @@ console.log(a, b, c, d, e); // 1, 2, 3, 4, 5
   <br/>
 
 - **`unshift(value: T): this`** Add an element to the head of the linklist
-
   - **parameters:** - **`value: T`** The value to add
     <br/>
 
@@ -106,22 +104,18 @@ console.log(a, b, c, d, e); // 1, 2, 3, 4, 5
   <br/>
 
 - **`indexOf(value: T): number`** Get index by element
-
   - **parameters:** - **`value: T`**
     <br/>
 
 - **`at(index: number): T`** Get element by index
-
   - **parameters:** - **`index: number`**
     <br/>
 
 - **`removeAt(index: number): T`** Remove element by index
-
   - **parameters:** - **`index: number`**
     <br/>
 
 - **`forEach(callback: (value: T) => void): void`** Traverse the linklist with callbacks
-
   - **parameters:** - **`callback: (value: T) => void`**
     <br/>
 
