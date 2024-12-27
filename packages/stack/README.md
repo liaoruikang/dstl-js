@@ -70,23 +70,35 @@ console.log(a, b, c, d, e); // 5, 4, 3, 2, 1
 ### Constructor
 
 - **`new Stack(iterable?: Iterable<T>)`** Create a stack container
-  **parameters:**
-  - **`iterable?`** Accepts an iterable as the initial value of the container
+  - **parameters:**
+    - **`iterable?`** Accepts an iterable as the initial value of the container
 
 ### Attributes
 
 - **`size: number`** Stack size
+  <br/>
 - **`isEmpty: boolean`** Whether the stack is empty
+  <br/>
 - **`top: T`** Gets the top element of the stack
 
 ### Methods
 
 - **`push(value: T): this`** Inserts an element to the top of the stack
-  **parameters:**
-  - **`value： T`** The value to insert
+
+  - **parameters:**
+    - **`value： T`** The value to insert
+      <br/>
+
 - **`pop(): T`** Remove the top of the stack element
+  <br/>
+
 - **`forEach(callback: (value: T) => void): void`** Traverse the stack with callbacks
-  **parameters:**
-  - **`callback: (value: T) => void`**
-- **`values(): Generator<T>`** Returns a [`generator`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator) object
+
+  - **parameters:**
+    - **`callback: (value: T) => void`**
+      <br/>
+
+- **`values(): Generator<T>`** Returns a [`generator`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator) consisting of all elements
+  <br/>
+
 - **`clear(): this`** Clear stack

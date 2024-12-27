@@ -70,23 +70,37 @@ console.log(a, b, c, d, e); // 1, 2, 3, 4, 5
 ### Constructor
 
 - **`new Queue(iterable?: Iterable<T>)`** Create a queue container
-  **parameters:**
-  - **`iterable?`** Accepts an iterable as the initial value of the container
+  - **parameters:**
+    - **`iterable?`** Accepts an iterable as the initial value of the container
 
 ### Attributes
 
 - **`size: number`** Queue size
+  <br/>
+
 - **`isEmpty: boolean`** Whether the queue is empty
+  <br/>
+
 - **`peek: T`** View the queue head element
 
 ### Methods
 
 - **`enqueue(value: T): this`** Add the element to the queue
-  **parameters:**
-  - **`value： T`** The value to add
+
+  - **parameters:**
+    - **`value： T`** The value to add
+      <br/>
+
 - **`dequeue(): T`** dequeue head element
+  <br/>
+
 - **`forEach(callback: (value: T) => void): void`** Traverse the queue with callbacks
-  **parameters:**
-  - **`callback: (value: T) => void`**
-- **`values(): Generator<T>`** Returns a [`generator`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator) object
+
+  - **parameters:**
+    - **`callback: (value: T) => void`**
+      <br/>
+
+- **`values(): Generator<T>`** Returns a [`generator`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator) consisting of all elements
+  <br/>
+
 - **`clear(): this`** Clear queue

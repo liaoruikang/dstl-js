@@ -48,7 +48,7 @@ const publish = async (id: string) => {
   try {
     const { stdout: remoteVersion } = await execa('pnpm', [
       'view',
-      pkg.name,
+      `${pkg.name}${releaseTag ? `@${releaseTag}` : ''}`,
       'version'
     ]);
     if (cmp(pkg.version, '<=', remoteVersion))
