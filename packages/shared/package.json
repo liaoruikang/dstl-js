@@ -1,6 +1,6 @@
 {
   "name": "@dstl-js/shared",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-beta.0",
   "unpkg": "dist/index.js",
   "author": "Lrk",
   "license": "MIT",
@@ -24,5 +24,8 @@
         "default": "./dist/index.cjs"
       }
     }
+  },
+  "dependencies": {
+    "package.json": "^2.0.1"
   }
 }

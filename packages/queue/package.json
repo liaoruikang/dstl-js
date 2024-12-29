@@ -1,6 +1,6 @@
 {
   "name": "@dstl-js/queue",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-beta.0",
   "unpkg": "dist/index.js",
   "files": [
     "dist"
@@ -29,5 +29,8 @@
     "queue"
   ],
   "author": "Lrk",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "package.json": "^2.0.1"
+  }
 }

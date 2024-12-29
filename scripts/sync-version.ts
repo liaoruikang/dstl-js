@@ -5,6 +5,7 @@ import { cmp } from 'semver';
 import { join } from 'node:path';
 import pc from 'picocolors';
 import { exit } from 'node:process';
+import { execa } from 'execa';
 
 const mainPkg = await readPackageJSON();
 if (mainPkg.version) {
@@ -17,6 +18,9 @@ if (mainPkg.version) {
     const oldVersion = pkg.version;
     pkg.version = version;
     await writePackageJSON(join(path, 'package.json'), pkg);
+    await execa('pnpm', ['add', 'package.json'], {
+      cwd: path
+    });
     console.log(
       pc.green(`${pkg.name} ${pc.gray(oldVersion)} -> ${pc.white(version)}`)
     );

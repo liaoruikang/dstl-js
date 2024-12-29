@@ -50,8 +50,8 @@ const publish = async (id: string) => {
       'view',
       `${pkg.name}${releaseTag ? `@${releaseTag}` : ''}`,
       'version'
-    ]);
-    if (cmp(pkg.version, '<=', remoteVersion))
+    ]).catch(() => ({ stdout: void 0 }));
+    if (remoteVersion && cmp(pkg.version, '<=', remoteVersion))
       return Promise.resolve(
         `${pkg.name}@${pkg.version}: package version <= remote version, skip publish`
       );

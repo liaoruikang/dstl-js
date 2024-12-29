@@ -1,6 +1,6 @@
 {
   "name": "dstl-js",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-beta.0",
   "unpkg": "dist/index.js",
   "description": "data structure tool lib for Javascript",
   "files": [
@@ -38,6 +38,7 @@
     "@dstl-js/bst": "workspace:^",
     "@dstl-js/linklist": "workspace:^",
     "@dstl-js/queue": "workspace:^",
-    "@dstl-js/stack": "workspace:^"
+    "@dstl-js/stack": "workspace:^",
+    "package.json": "^2.0.1"
   }
 }

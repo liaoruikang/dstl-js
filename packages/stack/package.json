@@ -1,6 +1,6 @@
 {
   "name": "@dstl-js/stack",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-beta.0",
   "unpkg": "dist/index.js",
   "repository": {
     "type": "git",
@@ -31,6 +31,7 @@
   "author": "Lrk",
   "license": "MIT",
   "dependencies": {
-    "@dstl-js/shared": "workspace:^"
+    "@dstl-js/shared": "workspace:^",
+    "package.json": "^2.0.1"
   }
 }

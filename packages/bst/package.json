@@ -1,6 +1,6 @@
 {
   "name": "@dstl-js/bst",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-beta.0",
   "unpkg": "dist/index.js",
   "files": [
     "dist"
@@ -33,6 +33,7 @@
   "dependencies": {
     "@dstl-js/queue": "workspace:^",
     "@dstl-js/shared": "workspace:^",
-    "@dstl-js/stack": "workspace:^"
+    "@dstl-js/stack": "workspace:^",
+    "package.json": "^2.0.1"
   }
 }
