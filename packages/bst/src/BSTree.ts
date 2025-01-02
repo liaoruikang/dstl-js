@@ -23,7 +23,8 @@ export enum BSTraverseType {
   SEQUENCE
 }
 
-export type BSComparer<Key> = (a: Key, b: Key) => number;
+export type BSCompareResult = -1 | 0 | 1 | void;
+export type BSComparer<Key> = (a: Key, b: Key) => BSCompareResult;
 
 type BSTreeArgs<Key, T> = Key extends number
   ? [
@@ -50,7 +51,8 @@ export class BSTree<T, Key = number> {
   constructor(...[iterable, comparer, repeatable]: BSTreeArgs<Key, T>) {
     this._repeatable = repeatable ?? false;
     this._comparer =
-      comparer ?? ((a, b) => Math.sign((a as number) - (b as number)));
+      comparer ??
+      ((a, b) => Math.sign((a as number) - (b as number)) as BSCompareResult);
     if (iterable) this.batchInsert(iterable);
   }
 
@@ -322,6 +324,7 @@ export class BSTree<T, Key = number> {
       if (comp === -1) current = current.left;
       else if (comp === 1) current = current.right;
       else if (comp === 0) return current;
+      else break;
     }
     return null;
   }
