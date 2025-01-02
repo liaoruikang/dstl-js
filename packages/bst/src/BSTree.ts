@@ -225,7 +225,7 @@ export class BSTree<T, Key = number> {
     return !!this._findNode(key);
   }
 
-  private _createNode(
+  protected _createNode(
     key: Key,
     value: T,
     parent: BSNode<Key, T> | null = null,
@@ -317,10 +317,10 @@ export class BSTree<T, Key = number> {
     return !this._isRoot(node);
   }
 
-  protected _findNode(key: Key) {
+  protected _findNode(key: Key, comparer = this._comparer) {
     let current = this._root;
     while (current) {
-      const comp = this._comparer(key, current.key);
+      const comp = comparer(key, current.key);
       if (comp === -1) current = current.left;
       else if (comp === 1) current = current.right;
       else if (comp === 0) return current;
