@@ -1,4 +1,10 @@
-import { BSNode, BSNodeType, BSTree } from '@dstl-js/bst';
+import {
+  BSNode,
+  BSNodeType,
+  BSTree,
+  BSTraverseType,
+  BSComparer
+} from '@dstl-js/bst';
 import { isUndefined } from '@dstl-js/shared';
 
 enum AVLRotateType {
@@ -7,6 +13,8 @@ enum AVLRotateType {
   LR,
   RL
 }
+
+export { BSNodeType, BSTraverseType, type BSComparer };
 
 export interface AVLNode<Key, T> extends BSNode<Key, T> {
   balanceFactor?: number;

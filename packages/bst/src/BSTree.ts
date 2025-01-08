@@ -27,7 +27,7 @@ export type BSComparer<Key> = (a: Key, b: Key) => number;
 
 type BSTreeArgs<Key, T> = Key extends number
   ? [
-      iterable?: Iterable<[key: Key, value: T]>,
+      iterable?: Iterable<[key: Key, value: T]> | null,
       comparer?: BSComparer<Key>,
       repeatable?: boolean
     ]
@@ -82,10 +82,8 @@ export class BSTree<T, Key = number> {
     return this._findNode(key)?.value;
   }
 
-  remove(key: Key | Key[]) {
-    if (!Array.isArray(key)) key = [key];
-
-    return key
+  remove(...keys: Key[]) {
+    return keys
       .map(k => {
         const node = this._remove(k);
         if (!node) return;
@@ -223,7 +221,7 @@ export class BSTree<T, Key = number> {
     return !!this._findNode(key);
   }
 
-  private _createNode(
+  protected _createNode(
     key: Key,
     value: T,
     parent: BSNode<Key, T> | null = null,
@@ -281,19 +279,25 @@ export class BSTree<T, Key = number> {
     if (!target) return null;
     let prev, next;
     if ((next = this._getNextNode(target))) {
-      target.key = next.key;
-      target.value = next.value;
+      [[target.key, target.value], [next.key, next.value]] = [
+        [next.key, next.value],
+        [target.key, target.value]
+      ];
 
       next.parent![next.type] = next.right;
-      if (next.right) next.right.type = next.type;
+      if (next.right)
+        (next.right.type = next.type), (next.right.parent = next.parent);
 
       target = next;
     } else if ((prev = this._getPrevNode(target))) {
-      target.key = prev.key;
-      target.value = prev.value;
+      [[target.key, target.value], [prev.key, prev.value]] = [
+        [prev.key, prev.value],
+        [target.key, target.value]
+      ];
 
       prev.parent![prev.type] = prev.left;
-      if (prev.left) prev.left.type = prev.type;
+      if (prev.left)
+        (prev.left.type = prev.type), (prev.left.parent = prev.parent);
 
       target = prev;
     } else if (this._notRoot(target)) target.parent[target.type] = null;
