@@ -266,7 +266,7 @@ export class BSTree<T, Key = number> {
       else if (comp === -1)
         if (current.left === null) type = BSNodeType.LEFT;
         else current = current.left;
-      else if (comp === 0) return (current.value = value!), current;
+      else if (comp === 0) return (current.value = value!), null;
       else return null;
     }
 
